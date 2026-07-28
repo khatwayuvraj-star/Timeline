@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Tweety ✨</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(to top,#050b1f,#102347,#1d4e89);
+position:relative;
+}
+
+/* 🌙 Moon */
+
+.moon{
+position:absolute;
+top:50px;
+right:60px;
+width:120px;
+height:120px;
+border-radius:50%;
+background:#fff;
+box-shadow:0 0 60px white;
+}
+
+/* ⭐ Stars */
+
+.star{
+position:absolute;
+width:3px;
+height:3px;
+background:white;
+border-radius:50%;
+animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+from{
+opacity:.3;
+transform:scale(1);
+}
+to{
+opacity:1;
+transform:scale(2);
+}
+}
+
+/* 💖 Main Box */
+
+.box{
+position:relative;
+z-index:10;
+text-align:center;
+color:white;
+padding:20px;
+}
+
+.box h1{
+font-size:42px;
+margin-bottom:15px;
+text-shadow:0 0 20px hotpink;
+}
+
+.box p{
+font-size:22px;
+margin-bottom:30px;
+}
+
+/* ❤️ Buttons */
+
+button{
+padding:14px 34px;
+font-size:22px;
+border:none;
+border-radius:40px;
+cursor:pointer;
+}#lockScreen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#081229;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:99999;
+}
+
+.lockBox{
+background:white;
+padding:25px;
+border-radius:15px;
+text-align:center;
+width:280px;
+}
+
+.lockBox input{
+width:90%;
+padding:10px;
+font-size:18px;
+margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="moon"></div>
+
+<div class="box">
+    <h1>💖 Tweety ✨ 💖</h1>
+    <p>Will You Stay With Me Forever? ❤️</p>
+
+    <button id="yes">🥹Yes 💖🫴</button>
+    <button id="no">No 💔</button>
+</div>
+
+<script>
+
+/* ⭐ Create Stars */
+
+for(let i=0;i<180;i++){
+
+    const star=document.createElement("div");
+
+    star.className="star";
+
+    star.style.left=Math.random()*100+"vw";
+    star.style.top=Math.random()*100+"vh";
+    star.style.animationDuration=(1+Math.random()*2)+"s";
+
+    document.body.appendChild(star);
+
+}
+
+/* 💔 Moving No Button */
+
+const no=document.getElementById("no");
+
+function moveNo(){
+
+    const padding=20;
+
+    const maxX=window.innerWidth-no.offsetWidth-padding;
+    const maxY=window.innerHeight-no.offsetHeight-padding;
+
+    no.style.left=Math.floor(Math.random()*maxX)+"px";
+    no.style.top=Math.floor(Math.random()*maxY)+"px";
+
+}
+
+no.addEventListener("touchstart",function(e){
+    e.preventDefault();
+    moveNo();
+},{passive:false});
+
+no.addEventListener("mouseenter",moveNo);
+no.addEventListener("click",moveNo);
+
+/* ❤️ Yes Button */
+
+document.getElementById("yes").addEventListener("click", function () {
+
+document.body.innerHTML = `
+
+<video autoplay muted loop playsinline
+style="
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:-2;">
+<source src="love.mp4" type="video/mp4">
+</video>
+
+<div style="
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.25);
+z-index:-1;">
+</div>
+
+<div style="
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+text-align:center;
+color:white;
+z-index:10;">
+
+<h1 style="
+font-size:52px;
+text-shadow:0 0 20px hotpink;">
+💓💖 Destiny Brought Us Together 💖💝
+</h1>
+
+<h2 style="
+margin-top:20px;
+font-size:34px;">
+Tweety ✨
+</h2>
+
+</div>
+
+`;
+
+});
+/* 🌸 Sakura */
+
+function sakura(){
+
+const p=document.createElement("div");
+
+p.innerHTML="🌸";
+
+p.style.position="fixed";
+p.style.left=Math.random()*100+"vw";
+p.style.top="-30px";
+p.style.fontSize=(18+Math.random()*15)+"px";
+p.style.pointerEvents="none";
+p.style.zIndex="999";
+
+document.body.appendChild(p);
+
+let y=-30;
+
+const fall=setInterval(()=>{
+
+y+=3;
+
+p.style.top=y+"px";
+p.style.left=(parseFloat(p.style.left)+Math.sin(y/30))+"px";
+
+if(y>window.innerHeight){
+
+clearInterval(fall);
+
+p.remove();
+
+}
+
+},30);
+
+}
+
+setInterval(sakura,300);
+
+
+/* 💖 Hearts */
+
+function heart(){
+
+const h=document.createElement("div");
+
+h.innerHTML="💖";
+
+h.style.position="fixed";
+h.style.left=Math.random()*100+"vw";
+h.style.bottom="0";
+h.style.fontSize="22px";
+h.style.pointerEvents="none";
+
+document.body.appendChild(h);
+
+let y=0;
+
+const fly=setInterval(()=>{
+
+y+=4;
+
+h.style.transform=`translateY(-${y}px)`;
+
+if(y>window.innerHeight){
+
+clearInterval(fly);
+
+h.remove();
+
+}
+
+},30);
+
+}
+
+setInterval(heart,800);
+
+
+/* 🎆 Fireworks */
+
+function fire(){
+
+const f=document.createElement("div");
+
+f.innerHTML="🎇";
+
+f.style.position="fixed";
+f.style.left=Math.random()*90+"vw";
+f.style.top=Math.random()*40+"vh";
+f.style.fontSize="45px";
+
+document.body.appendChild(f);
+
+setTimeout(()=>{
+
+f.remove();
+
+},1200);
+
+}
+
+setInterval(fire,1800);
+// 🔒 Password Protection
+const pass = prompt("Enter Password ❤️");
+
+if (pass !== "1704") {
+    document.body.innerHTML = `
+    <div style="
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+        background:black;
+        color:white;
+        font-size:28px;
+        text-align:center;
+    ">
+        ❌ Wrong Password
+    </div>`;
+    throw new Error("Wrong Password");
+}
+</script>
+
+</body>
+</html>
